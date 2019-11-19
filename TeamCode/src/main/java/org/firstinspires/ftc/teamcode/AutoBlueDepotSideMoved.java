@@ -97,7 +97,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 @Autonomous(name="AutoBlueDepotMoved", group="Pushbot")
 //
 // @Disabled
-public class AutoBlueDepotSideMoved extends LinearOpMode {
+public class  AutoBlueDepotSideMoved extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwarePushbot robot = new HardwarePushbot();   // Use a Pushbot's hardware
@@ -441,7 +441,7 @@ public class AutoBlueDepotSideMoved extends LinearOpMode {
 
 
        runtime.reset();
-        while(opModeIsActive() && runtime.seconds() <.3) {
+        while(opModeIsActive() && runtime.seconds() <.4) {
             robot.leftArm.setPower(1);//+ve rotates lift down
 
         }
@@ -452,7 +452,7 @@ public class AutoBlueDepotSideMoved extends LinearOpMode {
 
         robot.leftDrive.setPower(1);
         robot.rightDrive.setPower(1);
-        gyroDrive(0.3,0.3,0.3,0.3,45,0);
+        gyroDrive(0.9,0.9,0.9,0.9,45,0);
 
 
 
@@ -461,11 +461,13 @@ public class AutoBlueDepotSideMoved extends LinearOpMode {
         robot.rightDrive.setPower(0);
 
 
-        gyroReverse(0.3,0.3,0.3,0.3,30,0);
+        //gyroReverse(0.3,0.3,0.3,0.3,30,0);
+
+        gyroReverse(0.9,0.9,0.9,0.9,20,0);
 
 
         runtime.reset();
-        while(opModeIsActive() && runtime.seconds() <.3) {
+        while(opModeIsActive() && runtime.seconds() <.4) {
             robot.leftArm.setPower(-1);//drops intake to foundation
 
         }
@@ -474,7 +476,7 @@ public class AutoBlueDepotSideMoved extends LinearOpMode {
         gyroTurn(0.8, 90);
 
 
-        gyroDrive(0.7,0.7,0.7,0.7, 42,90);
+        gyroDrive(0.9,0.9,0.9,0.9, 46,90);
 
 
 
@@ -485,7 +487,7 @@ public class AutoBlueDepotSideMoved extends LinearOpMode {
         robot.leftRear.setPower(0);
         robot.rightRear.setPower(0);
 
-        sleep(500);
+        sleep(100);
 
         runtime.reset();
         while(opModeIsActive() && runtime.seconds() <.5) {
@@ -495,7 +497,7 @@ public class AutoBlueDepotSideMoved extends LinearOpMode {
         robot.leftArm.setPower(0);
 
         runtime.reset();
-        while(opModeIsActive() && runtime.seconds() <2) {
+        while(opModeIsActive() && runtime.seconds() <1) {
             robot.leftDrive.setPower(-1);
             robot.rightDrive.setPower(-1);
 
@@ -505,7 +507,7 @@ public class AutoBlueDepotSideMoved extends LinearOpMode {
 
 
 
-        gyroReverse(0.5,0.5,0.5,0.5, 27, 0);
+        gyroReverse(0.9,0.9,0.9,0.9, 67, 90);
 
 
 
@@ -514,14 +516,93 @@ public class AutoBlueDepotSideMoved extends LinearOpMode {
         robot.leftRear.setPower(0);
         robot.rightRear.setPower(0);
 
-        sleep(500);
+        sleep(100);
+
+
+        gyroTurn(.8,0);
+
+
+        robot.leftDrive.setPower(1);
+        robot.rightDrive.setPower(1);
+
+        gyroDrive(0.9,0.9,0.9,0.9,25,0);
+
+
+        robot.leftDrive.setPower(0);
+        robot.rightDrive.setPower(0);
+
+        robot.leftFront.setPower(0);
+        robot.rightFront.setPower(0);
+        robot.leftRear.setPower(0);
+        robot.rightRear.setPower(0);
+
+        sleep(100);
+
+        gyroReverse(0.9,0.9,0.9,0.9, 22,0);
+
+        robot.leftFront.setPower(0);
+        robot.rightFront.setPower(0);
+        robot.leftRear.setPower(0);
+        robot.rightRear.setPower(0);
+
+        sleep(100);
+
+        runtime.reset();
+        while(opModeIsActive() && runtime.seconds() <.4) {
+            robot.leftArm.setPower(-1);//drops intake to foundation
+
+        }
+        robot.leftArm.setPower(0);
+
+
+        gyroTurn(0.8,90);
+
+        gyroDrive(0.9,0.9,0.9,0.9, 65,90);
+
+        robot.leftFront.setPower(0);
+        robot.rightFront.setPower(0);
+        robot.leftRear.setPower(0);
+        robot.rightRear.setPower(0);
+
+        sleep(100);
+
+        runtime.reset();
+        while(opModeIsActive() && runtime.seconds() <.4) {
+            robot.leftArm.setPower(1);//drops intake to foundation
+
+        }
+        robot.leftArm.setPower(0);
+
+        runtime.reset();
+        while(opModeIsActive() && runtime.seconds() <1) {
+            robot.leftDrive.setPower(-1);
+            robot.rightDrive.setPower(-1);
+
+        }
+        robot.leftDrive.setPower(0);
+        robot.rightDrive.setPower(0);
+
+      gyroReverse(0.8,0.8,0.8,.8,20, 90 );
+
+
+        robot.leftFront.setPower(0);
+        robot.rightFront.setPower(0);
+        robot.leftRear.setPower(0);
+        robot.rightRear.setPower(0);
+
+        sleep(100);
 
 
 
 
 
 
-                targetsSkyStone.deactivate();
+
+
+
+
+
+        targetsSkyStone.deactivate();
 }
 
 
