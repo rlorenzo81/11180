@@ -461,6 +461,7 @@ gyroReverse(0.8,0.8,0.8,0.8, 10, 0);
         robot.rightFront.setPower(0);
         robot.rightRear.setPower(0);
 
+        sleep(500);
         gyroReverse(0.5, 0.5, 0.5, 0.5, 20, 0);
 
         robot.rightFoundation.setPosition(0);
@@ -468,7 +469,7 @@ gyroReverse(0.8,0.8,0.8,0.8, 10, 0);
 
         sleep(1000);
 
-        gyroDrive(0.3,0.3,0.3,0.3, 35, 0);
+        gyroDrive(0.3,0.3,0.3,0.3, 31, 0);
 
         robot.rightFoundation.setPosition(1);
         robot.leftFoundation.setPosition(0);
