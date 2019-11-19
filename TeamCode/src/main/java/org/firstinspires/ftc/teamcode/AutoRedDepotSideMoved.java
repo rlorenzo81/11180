@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -97,6 +98,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 @Autonomous(name="AutoRedDepotMoved", group="Pushbot")
 //
 // @Disabled
+@Disabled
 public class AutoRedDepotSideMoved extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -461,7 +463,7 @@ public class AutoRedDepotSideMoved extends LinearOpMode {
         robot.rightDrive.setPower(0);
 
 
-        gyroReverse(0.3,0.3,0.3,0.3,30,0);
+        gyroReverse(0.3,0.3,0.3,0.3,20,0);
 
 
         runtime.reset();
