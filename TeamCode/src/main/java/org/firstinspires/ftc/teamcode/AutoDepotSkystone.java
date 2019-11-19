@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -98,6 +99,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 @Autonomous(name="AutoRedDepotSkystone", group="Pushbot")
 //
 // @Disabled
+@Disabled
 public class AutoDepotSkystone extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -436,6 +438,13 @@ public class AutoDepotSkystone extends LinearOpMode {
         waitForStart();
 
 
+        while(opModeIsActive() && runtime.seconds() <5){
+            robot.leftFront.setPower(-0.5);
+            robot.leftRear.setPower(0.5);
+            robot.rightFront.setPower(0.5);
+            robot.rightRear.setPower(-0.5);
+        }
+
         targetsSkyStone.activate();
 
         while (!isStopRequested()) {
@@ -445,10 +454,10 @@ public class AutoDepotSkystone extends LinearOpMode {
             for (VuforiaTrackable trackable : allTrackables) {
                 if (!((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
 
-                    robot.leftFront.setPower(-0.3);
-                    robot.leftRear.setPower(0.3);
-                    robot.rightFront.setPower(0.3);
-                    robot.rightRear.setPower(-0.3);
+                    robot.leftFront.setPower(0.3);
+                    robot.leftRear.setPower(-0.3);
+                    robot.rightFront.setPower(-0.3);
+                    robot.rightRear.setPower(0.3);
 
 
                 }
@@ -466,6 +475,9 @@ public class AutoDepotSkystone extends LinearOpMode {
                 }
             }
 
+
+
+
             // Provide feedback as to where the robot is located (if we know).
             if (targetVisible) {
                
@@ -476,6 +488,47 @@ public class AutoDepotSkystone extends LinearOpMode {
             telemetry.update();
         }
 
+        runtime.reset();
+        while(opModeIsActive() && runtime.seconds() <.3) {
+            robot.leftArm.setPower(1);//+ve rotates lift down
+
+        }
+
+        robot.leftArm.setPower(0);
+
+
+
+        robot.leftDrive.setPower(1);
+        robot.rightDrive.setPower(1);
+
+        gyroDrive(0.3,0.3,0.3,0.3,45,0);
+
+        robot.leftDrive.setPower(0);
+        robot.rightDrive.setPower(0);
+
+
+        gyroReverse(0.3,0.3,0.3,0.3,30,0);
+
+        gyroTurn(.3,90);//turn left 90 Degrees
+
+        gyroDrive(0.7,0.7,0.7,0.7, 65,90);// WAS 90
+
+        gyroTurn(.4,0);
+
+        gyroDrive(.3,.3,.3,.3,15,0);
+
+        runtime.reset();
+        while(opModeIsActive() && runtime.seconds() <5){
+            robot.leftFront.setPower(0.5);
+            robot.leftRear.setPower(-0.5);
+            robot.rightFront.setPower(-0.5);
+            robot.rightRear.setPower(0.5);
+        }
+
+        robot.leftFront.setPower(0);
+        robot.leftRear.setPower(0);
+        robot.rightFront.setPower(0);
+        robot.rightRear.setPower(0);
 
 
 
