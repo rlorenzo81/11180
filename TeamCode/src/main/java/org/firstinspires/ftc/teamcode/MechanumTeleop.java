@@ -124,6 +124,21 @@ public class MechanumTeleop extends OpMode{
         robot.leftRear.setPower(-v3);
         robot.rightRear.setPower(-v4);
 
+        if (gamepad1.dpad_left){
+            robot.leftFront.setPower(-0.4);
+            robot.leftRear.setPower(0.4);
+            robot.rightFront.setPower(0.4);
+            robot.rightRear.setPower(-0.4);
+        }
+
+        else if (gamepad1.dpad_right){
+            robot.leftFront.setPower(0.4);
+            robot.leftRear.setPower(-0.4);
+            robot.rightFront.setPower(-0.4);
+            robot.rightRear.setPower(0.4);
+        }
+
+
 
         double left;
         double right;
