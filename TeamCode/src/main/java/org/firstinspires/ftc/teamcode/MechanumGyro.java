@@ -98,10 +98,10 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Pushbot: Mech Gyro", group="Pushbot")
+@Autonomous(name="Strafing", group="Pushbot")
 
-// @Disabled
-@Disabled
+ //@Disabled
+//@Disabled
 public class MechanumGyro extends LinearOpMode {
 
     /* Declare OpMode members. */
@@ -116,7 +116,7 @@ public class MechanumGyro extends LinearOpMode {
     Acceleration gravity;
 
 
-    static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: TETRIX Motor Encoder
+    static final double COUNTS_PER_MOTOR_REV = 737;    // eg: TETRIX Motor Encoder
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
@@ -199,8 +199,7 @@ public class MechanumGyro extends LinearOpMode {
         telemetry.update();
 
         gyro.calibrate();*/
-        robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -401,91 +400,23 @@ public class MechanumGyro extends LinearOpMode {
         robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         waitForStart();
-        targetsSkyStone.activate();
-
-        imu.initialize(parameters);
 
 
-runtime.reset();
-        while (!isStopRequested() && runtime.seconds()<1) {
-
-            // check all the trackable targets to see which one (if any) is visible.
-            targetVisible = false;
-            for (VuforiaTrackable trackable : allTrackables) {
-                if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
-                    telemetry.addData("Visible Target", trackable.getName());
-
-                    if(trackable.getName().equals("Stone Target")){
-                        robot.leftFront.setPower(0);
-                        robot.rightFront.setPower(0);
-                        robot.leftRear.setPower(0);
-                        robot.rightFront.setPower(0);
-
-                        targetVisible = true;
-                    }
-
-                    else{
-                        robot.leftFront.setPower(0.5);
-                        robot.rightFront.setPower(0.5);
-                        robot.leftRear.setPower(0.5);
-                        robot.rightFront.setPower(0.5);
-
-                    }
-
-
-                    // getUpdatedRobotLocation() will return null if no new information is available since
-                    // the last time that call was made, or if the trackable is not currently visible.
-                    OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
-                    if (robotLocationTransform != null) {
-                        lastLocation = robotLocationTransform;
-                    }
-                    break;
-                }
-            }
-
-            // Provide feedback as to where the robot is located (if we know).
-            if (targetVisible) {
-                // express position (translation) of robot in inches.
-                VectorF translation = lastLocation.getTranslation();
-                telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
-                        translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
-
-                // express the rotation of the robot in degrees.
-                Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
-                telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
-            }
-            else {
-                telemetry.addData("Visible Target", "none");
-            }
-            telemetry.update();
-        }
-
-        while(opModeIsActive() && !(allTrackables.equals("Stone Target")))
-        {
-            robot.leftFront.setPower(0.5);
-            robot.rightFront.setPower(0.5);
-            robot.leftRear.setPower(0.5);
-            robot.rightFront.setPower(0.5);
-        }
+        gyroStrafeLeft(0.3,0.3,0.3,0.3, 20, 0);
 
         robot.leftFront.setPower(0);
         robot.rightFront.setPower(0);
         robot.leftRear.setPower(0);
         robot.rightFront.setPower(0);
+        sleep(100);
 
-     // gyroDrive(0.3, 100, 0);
-
-
-                targetsSkyStone.deactivate();
 }
 
 
 
-
-
-    public void gyroStrafeRight ( double speed,
-                            double distance,
-                            double angles) {
+    public void gyroStrafeLeft ( double speedLF,double speedRF, double speedLR, double speedRR,
+                              double distance,
+                              double angles) {
 
         int     newLeftTargetF;
         int     newLeftTargetR;
@@ -493,50 +424,62 @@ runtime.reset();
         int     newRightTargetR;
         int     moveCounts;
         double  max;
+        double max2;
         double  error;
         double  steer;
         double  leftSpeedF;
-        double  rightSpeedF;
         double  leftSpeedR;
+        double  rightSpeedF;
         double  rightSpeedR;
+
         robot.leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        robot.leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
+            robot.leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
             // Determine new target position, and pass to motor controller
             moveCounts = (int)(distance * COUNTS_PER_INCH);
-            newLeftTargetF = robot.leftFront.getCurrentPosition() + moveCounts;
-            newRightTargetF = (robot.rightFront.getCurrentPosition() + moveCounts)*-1;
-            newLeftTargetR = (robot.leftRear.getCurrentPosition() + moveCounts)*-1;
-            newRightTargetR = (robot.rightRear.getCurrentPosition() + moveCounts);
+            //newLeftTargetF = robot.leftFront.getCurrentPosition() - moveCounts;
+             newRightTargetF = robot.rightFront.getCurrentPosition() + moveCounts;
+            //  newLeftTargetR = robot.leftRear.getCurrentPosition() + moveCounts;
+            //  newRightTargetR = robot.rightRear.getCurrentPosition() + moveCounts;
 
-            // Set Target and Turn On RUN_TO_POSITION
-            robot.leftFront.setTargetPosition(newLeftTargetF);
-            robot.rightFront.setTargetPosition(newRightTargetF);
-            robot.leftRear.setTargetPosition(newLeftTargetR);
-            robot.rightRear.setTargetPosition(newRightTargetR);
 
-            robot.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.leftRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.rightRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            robot.leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
             // start motion.
-            speed = Range.clip(speed, -1, 1.0);
-            robot.leftFront.setPower(speed);
-            robot.rightFront.setPower(speed);
-            robot.leftRear.setPower(speed);
-            robot.rightRear.setPower(speed);
+            speedLF = Range.clip(Math.abs(speedLF), -1, 1.0);
+            speedRF = Range.clip(Math.abs(speedRF), -1, 1.0);
+            speedLR = Range.clip(Math.abs(speedLR), -1, 1.0);
+            speedRR = Range.clip(Math.abs(speedRR), -1, 1.0);
+
+            robot.leftFront.setPower(-speedLF);
+            robot.rightFront.setPower(speedRF);
+            robot.leftRear.setPower(speedLR);
+            robot.rightRear.setPower(-speedRR);
 
 
             // keep looping while we are still active, and BOTH motors are running.
             while (opModeIsActive() &&
-                    (robot.leftFront.isBusy() && robot.rightFront.isBusy())) {
+                    robot.rightFront.getCurrentPosition() < newRightTargetF ) {
 
                 // adjust relative speed based on heading error.
                 error = getError(angles);
@@ -545,19 +488,27 @@ runtime.reset();
                 // if driving in reverse, the motor correction also needs to be reversed
                 if (distance < 0)
                     steer *= -1.0;
-                leftSpeedF = speed - (0.5*steer);
-                leftSpeedR = speed +(0.5*steer);
-                rightSpeedF = speed - (0.5*steer);
-                rightSpeedR = speed + (0.5*steer);
+
+                leftSpeedF = -speedLF + (steer*.05);
+                leftSpeedR = speedLR + (steer*.05);
+                rightSpeedF = speedRF - (steer*.05);
+               rightSpeedR= -speedRR - (steer*.05);
+
+                leftSpeedF = -speedLF ;
+                leftSpeedR = speedLR ;
+                rightSpeedF = speedRF ;
+                rightSpeedR= -speedRR ;
 
                 // Normalize speeds if either one exceeds +/- 1.0;
                 max = Math.max(Math.abs(leftSpeedF), Math.abs(rightSpeedR));
-                if (max > 1.0)
+                max2 = Math.max(Math.abs(leftSpeedR), Math.abs(rightSpeedF));
+                if (max > 1.0 || max2 >1)
                 {
                     leftSpeedF /= max;
-                    rightSpeedR /= max;
                     leftSpeedR /= max;
                     rightSpeedF /= max;
+                    rightSpeedR /= max;
+
                 }
 
 
@@ -567,13 +518,7 @@ runtime.reset();
                 robot.leftRear.setPower(leftSpeedR);
                 robot.rightRear.setPower(rightSpeedR);
 
-                // Display drive status for the driver.
-                telemetry.addData("Err/St",  "%5.1f/%5.1f",  error, steer);
-                telemetry.addData("Target",  "%7d:%7d",      newLeftTargetF,  newRightTargetR);
-                telemetry.addData("Actual",  "%7d:%7d",      robot.leftFront.getCurrentPosition(),
-                        robot.rightFront.getCurrentPosition());
-                //telemetry.addData("Speed",   "%5.2f:%5.2f",  leftSpeed, rightSpeed);
-                telemetry.update();
+
             }
 
 
@@ -586,15 +531,13 @@ runtime.reset();
 
 
 
-            // Turn off RUN_TO_POSITION
-            robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
 
         }
     }
+
+
    /**
     *  Method to drive on a fixed compass bearing (angle), based on encoder counts.
     *  Move will stop if either of these conditions occur:
@@ -607,111 +550,7 @@ runtime.reset();
     *                   0 = fwd. +ve is CCW from fwd. -ve is CW from forward.
     *                   If a relative angle is required, add/subtract from current heading.
     */
-    public void gyroDrive ( double speed,
-                            double distance,
-                            double angles) {
 
-        int     newLeftTargetF;
-        int     newLeftTargetR;
-        int     newRightTargetF;
-        int     newRightTargetR;
-        int     moveCounts;
-        double  max;
-        double  error;
-        double  steer;
-        double  leftSpeed;
-        double  rightSpeed;
-
-        robot.leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-
-        // Ensure that the opmode is still active
-        if (opModeIsActive()) {
-
-            // Determine new target position, and pass to motor controller
-            moveCounts = (int)(distance * COUNTS_PER_INCH);
-            newLeftTargetF = robot.leftFront.getCurrentPosition() + moveCounts;
-            newRightTargetF = robot.rightFront.getCurrentPosition() + moveCounts;
-            newLeftTargetR = robot.leftRear.getCurrentPosition() + moveCounts;
-            newRightTargetR = robot.rightRear.getCurrentPosition() + moveCounts;
-
-            // Set Target and Turn On RUN_TO_POSITION
-            robot.leftFront.setTargetPosition(newLeftTargetF);
-            robot.rightFront.setTargetPosition(newRightTargetF);
-            robot.leftRear.setTargetPosition(newLeftTargetR);
-            robot.rightRear.setTargetPosition(newRightTargetR);
-
-            robot.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.leftRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.rightRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            // start motion.
-            speed = Range.clip(Math.abs(speed), 0.0, 1.0);
-            robot.leftFront.setPower(speed);
-            robot.rightFront.setPower(speed);
-            robot.leftRear.setPower(speed);
-            robot.rightRear.setPower(speed);
-
-
-            // keep looping while we are still active, and BOTH motors are running.
-            while (opModeIsActive() &&
-                   (robot.leftFront.isBusy() && robot.rightFront.isBusy())) {
-
-                // adjust relative speed based on heading error.
-                error = getError(angles);
-                steer = getSteer(error, P_DRIVE_COEFF);
-
-                // if driving in reverse, the motor correction also needs to be reversed
-                if (distance < 0)
-                    steer *= -1.0;
-
-                leftSpeed = speed - (steer*.05);
-                rightSpeed = speed + (steer*.05);
-
-                // Normalize speeds if either one exceeds +/- 1.0;
-                max = Math.max(Math.abs(leftSpeed), Math.abs(rightSpeed));
-                if (max > 1.0)
-                {
-                    leftSpeed /= max;
-                    rightSpeed /= max;
-                }
-
-
-
-                robot.leftFront.setPower(leftSpeed);
-                robot.rightFront.setPower(rightSpeed);
-                robot.leftRear.setPower(leftSpeed);
-                robot.rightRear.setPower(rightSpeed);
-
-                // Display drive status for the driver.
-                telemetry.addData("Err/St",  "%5.1f/%5.1f",  error, steer);
-                telemetry.addData("Target",  "%7d:%7d",      newLeftTargetF,  newRightTargetR);
-                telemetry.addData("Actual",  "%7d:%7d",      robot.leftFront.getCurrentPosition(),
-                                                             robot.rightFront.getCurrentPosition());
-                telemetry.addData("Speed",   "%5.2f:%5.2f",  leftSpeed, rightSpeed);
-                telemetry.update();
-            }
-
-
-
-            // Stop all motion;
-            robot.leftFront.setPower(0);
-            robot.rightFront.setPower(0);
-            robot.leftRear.setPower(0);
-            robot.rightFront.setPower(0);
-            // Turn off RUN_TO_POSITION
-            robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-
-        }
-    }
 
     /**
      *  Method to spin on central axis to point in a new direction.
