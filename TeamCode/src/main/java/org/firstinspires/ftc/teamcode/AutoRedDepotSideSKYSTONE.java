@@ -470,7 +470,7 @@ public class AutoRedDepotSideSKYSTONE extends LinearOpMode {
         robot.rightRear.setPower(0);
         sleep(100);
  runtime.reset();
-        while (!isStopRequested() && runtime.seconds() <3) {
+        while (!isStopRequested() && runtime.seconds() <1) {
 
             // check all the trackable targets to see which one (if any) is visible.
            // targetVisible = false;
@@ -549,7 +549,7 @@ if(skystone1==true ) {
 
     }
 
-    gyroReverse(0.5, 0.5, 0.5, 0.5, 35, 0);
+    gyroReverse(0.5, 0.5, 0.5, 0.5, 31, 0);
 
     robot.leftFront.setPower(0);
     robot.rightFront.setPower(0);
@@ -557,9 +557,46 @@ if(skystone1==true ) {
     robot.rightRear.setPower(0);
     sleep(100);
 
-    gyroTurn(0.7,-90);
+    //gyroTurn(0.7,-90);
 
-    gyroDrive(0.9,0.9,0.9,0.9, 60,-90);
+   // gyroDrive(0.9,0.9,0.9,0.9, 60,-90);
+
+    gyroStrafeRight(0.6,0.6,0.6,0.6,50,0);
+
+    robot.leftFront.setPower(0);
+    robot.rightFront.setPower(0);
+    robot.leftRear.setPower(0);
+    robot.rightRear.setPower(0);
+    sleep(100);
+
+    runtime.reset();
+    while(opModeIsActive() && runtime.seconds() <1) {
+        robot.leftArm.setPower(0.7);//+ve rotates lift down
+
+    }
+    robot.leftArm.setPower(0);//+ve rotates lift down
+
+    runtime.reset();
+    while(opModeIsActive() && runtime.seconds() <1.5) {
+        robot.leftDrive.setPower(-1);
+        robot.rightDrive.setPower(-1);
+    }
+
+    robot.leftDrive.setPower(0);
+    robot.rightDrive.setPower(0);
+    sleep(500);
+
+    runtime.reset();
+    while(opModeIsActive() && runtime.seconds() < 1 ) {
+
+        robot.leftArm.setPower(-0.7);//+ve rotates lift down
+
+    }
+    robot.leftArm.setPower(0);//+ve rotates lift down
+
+    sleep(500);
+
+gyroStrafeLeft(0.9,0.9,0.9,0.9,70,0);
 
     robot.leftFront.setPower(0);
     robot.rightFront.setPower(0);
@@ -573,17 +610,71 @@ if(skystone1==true ) {
 
     }
 
+    robot.leftArm.setPower(0);
+
+    robot.leftDrive.setPower(1);
+    robot.rightDrive.setPower(1);
+
+    gyroDrive(0.9,0.9,0.9,0.9,35,0);
+
+    robot.leftDrive.setPower(0);
+    robot.rightDrive.setPower(0);
+
+    robot.leftFront.setPower(0);
+    robot.rightFront.setPower(0);
+    robot.leftRear.setPower(0);
+    robot.rightRear.setPower(0);
+    sleep(100);
+
     runtime.reset();
-    while(opModeIsActive() && runtime.seconds() <.5) {
+    while(opModeIsActive() && runtime.seconds() <.4) {
+        robot.leftArm.setPower(-0.7);//+ve rotates lift down
+
+    }
+
+    gyroReverse(0.5, 0.5, 0.5, 0.5, 31, 0);
+
+    robot.leftFront.setPower(0);
+    robot.rightFront.setPower(0);
+    robot.leftRear.setPower(0);
+    robot.rightRear.setPower(0);
+    sleep(100);
+
+    gyroStrafeRight(0.6,0.6,0.6,0.6,65,0);
+
+    robot.leftFront.setPower(0);
+    robot.rightFront.setPower(0);
+    robot.leftRear.setPower(0);
+    robot.rightRear.setPower(0);
+    sleep(100);
+
+    runtime.reset();
+    while(opModeIsActive() && runtime.seconds() < 1 ) {
+
+        robot.leftArm.setPower(-0.7);//+ve rotates lift down
+
+    }
+    robot.leftArm.setPower(0);//+ve rotates lift down
+    runtime.reset();
+    while(opModeIsActive() && runtime.seconds() <1.5) {
         robot.leftDrive.setPower(-1);
         robot.rightDrive.setPower(-1);
     }
-    gyroReverse(0.5, 0.5, 0.5, 0.5, 25, 0);
 
-    
+    robot.leftDrive.setPower(0);
+    robot.rightDrive.setPower(0);
+    sleep(500);
+
+    runtime.reset();
+    while(opModeIsActive() && runtime.seconds() < 1 ) {
+
+        robot.leftArm.setPower(-0.7);//+ve rotates lift down
+
+    }
+    robot.leftArm.setPower(0);//+ve rotates lift down
 }
 
-
+/*
       gyroStrafeLeft(.5,.5,.5,.5,9,0);
 
         robot.leftFront.setPower(0);
@@ -591,7 +682,9 @@ if(skystone1==true ) {
         robot.leftRear.setPower(0);
         robot.rightRear.setPower(0);
         sleep(100);
+        */
 
+/*
 //look at skystone 2:
         runtime.reset();
         while (!isStopRequested() && runtime.seconds() <3) {
@@ -766,7 +859,7 @@ if(skystone2 ==true) {
 
         }
 
-
+*/
 
 
         targetsSkyStone.deactivate();
@@ -1140,15 +1233,15 @@ if(skystone2 ==true) {
                 if (distance < 0)
                     steer *= -1.0;
 
-                leftSpeedF = -speedLF + (steer*.05);
-                leftSpeedR = speedLR + (steer*.05);
-                rightSpeedF = speedRF - (steer*.05);
-                rightSpeedR= -speedRR - (steer*.05);
+                leftSpeedF = -speedLF + (steer*.1);
+                leftSpeedR = speedLR - (steer*.1);
+                rightSpeedF = speedRF + (steer*.1);
+                rightSpeedR= -speedRR - (steer*.1);
 
-                leftSpeedF = -speedLF ;
-                leftSpeedR = speedLR ;
-                rightSpeedF = speedRF ;
-                rightSpeedR= -speedRR ;
+                //leftSpeedF = -speedLF ;
+                //leftSpeedR = speedLR ;
+               // rightSpeedF = speedRF ;
+                //rightSpeedR= -speedRR ;
 
                 // Normalize speeds if either one exceeds +/- 1.0;
                 max = Math.max(Math.abs(leftSpeedF), Math.abs(rightSpeedR));
@@ -1190,6 +1283,134 @@ if(skystone2 ==true) {
 
         }
     }
+
+
+    public void gyroStrafeRight ( double speedLF,double speedRF, double speedLR, double speedRR,
+                                 double distance,
+                                 double angles) {
+
+        int     newLeftTargetF;
+        int     newLeftTargetR;
+        int     newRightTargetF;
+        int     newRightTargetR;
+        int     moveCounts;
+        double  max;
+        double max2;
+        double  error;
+        double  steer;
+        double  leftSpeedF;
+        double  leftSpeedR;
+        double  rightSpeedF;
+        double  rightSpeedR;
+
+        robot.leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        robot.leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+            robot.leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            // Determine new target position, and pass to motor controller
+            moveCounts = (int)(distance * COUNTS_PER_INCH);
+            newLeftTargetF = robot.leftFront.getCurrentPosition() + moveCounts;
+           // newRightTargetF = robot.rightFront.getCurrentPosition() + moveCounts;
+            //  newLeftTargetR = robot.leftRear.getCurrentPosition() + moveCounts;
+            //  newRightTargetR = robot.rightRear.getCurrentPosition() + moveCounts;
+
+
+
+            robot.leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            // start motion.
+            speedLF = Range.clip(Math.abs(speedLF), -1, 1.0);
+            speedRF = Range.clip(Math.abs(speedRF), -1, 1.0);
+            speedLR = Range.clip(Math.abs(speedLR), -1, 1.0);
+            speedRR = Range.clip(Math.abs(speedRR), -1, 1.0);
+
+            robot.leftFront.setPower(speedLF);
+            robot.rightFront.setPower(-speedRF);
+            robot.leftRear.setPower(-speedLR);
+            robot.rightRear.setPower(speedRR);
+
+
+            // keep looping while we are still active, and BOTH motors are running.
+            while (opModeIsActive() &&
+                    robot.leftFront.getCurrentPosition() < newLeftTargetF ) {
+
+                // adjust relative speed based on heading error.
+                error = getError(angles);
+                steer = getSteer(error, P_DRIVE_COEFF);
+
+                // if driving in reverse, the motor correction also needs to be reversed
+                if (distance < 0)
+                    steer *= -1.0;
+
+                leftSpeedF = speedLF -(steer*.5);
+                leftSpeedR = -speedLR + (steer*.5);
+                rightSpeedF = -speedRF -(steer*.5);
+                rightSpeedR= speedRR +(steer*.5);
+
+                //leftSpeedF = speedLF ;
+               // leftSpeedR = -speedLR ;
+               // rightSpeedF = -speedRF ;
+                //rightSpeedR= speedRR ;
+
+                // Normalize speeds if either one exceeds +/- 1.0;
+                max = Math.max(Math.abs(leftSpeedF), Math.abs(rightSpeedR));
+                max2 = Math.max(Math.abs(leftSpeedR), Math.abs(rightSpeedF));
+                if (max > 1.0 || max2 >1)
+                {
+                    leftSpeedF /= max;
+                    leftSpeedR /= max;
+                    rightSpeedF /= max;
+                    rightSpeedR /= max;
+
+                }
+
+
+
+                robot.leftFront.setPower(leftSpeedF);
+                robot.rightFront.setPower(rightSpeedF);
+                robot.leftRear.setPower(leftSpeedR);
+                robot.rightRear.setPower(rightSpeedR);
+
+
+            }
+
+
+
+            // Stop all motion;
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightFront.setPower(0);
+
+
+            robot.rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+
+        }
+    }
+
 
     /**
      *  Method to drive on a fixed compass bearing (angle), based on encoder counts.
