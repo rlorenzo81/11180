@@ -73,6 +73,7 @@ public class HardwarePushbot
     public Servo    rightClaw   = null;
     public Servo blockFlip = null;
     public Servo intakeFlip = null;
+    public Servo newFound = null;
 
 
     public Servo rotateServo = null;
@@ -156,16 +157,17 @@ public class HardwarePushbot
         leftClaw  = hwMap.get(Servo.class, "left_hand");
         rightClaw = hwMap.get(Servo.class, "right_hand");
 
-
+newFound= hwMap.get(Servo.class, "nf");
         rotateServo = hwMap.get(Servo.class, "rotate");
         blockFlip =hwMap.get(Servo.class, "bf");
         intakeFlip =hwMap.get(Servo.class, "if");
 
-        leftFoundation =hwMap.get(Servo.class, "lfound");
+        leftFoundation =hwMap.get(Servo.class, "leftfound");
         rightFoundation =hwMap.get(Servo.class, "rfound");
 
         rightFoundation.setPosition(1);
-        leftFoundation.setPosition(0);
+
+        //leftFoundation.setPosition(0);
 
         blockFlip.setPosition(0.8);
         intakeFlip.setPosition(0.7);
