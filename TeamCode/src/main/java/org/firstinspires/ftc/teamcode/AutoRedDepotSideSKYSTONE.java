@@ -503,9 +503,9 @@ skystone1=false;
         }
 if(skystone1==true ) {
 
+    targetsSkyStone.deactivate();
 
-
-    gyroReverse(0.5, 0.5, 0.5, 0.5, 10, 0);
+    gyroReverse(0.5, 0.5, 0.5, 0.5, 10, 0);//found skystone and backs uo
 
     robot.leftFront.setPower(0);
     robot.rightFront.setPower(0);
@@ -514,7 +514,7 @@ if(skystone1==true ) {
     sleep(100);
 
     if (angles.firstAngle >= 1 || angles.firstAngle <= -1) {
-        gyroTurn(0.9, 0);
+        gyroTurn(0.9, 0); // robot corrects to correct angle
 
     }
 
@@ -529,10 +529,10 @@ if(skystone1==true ) {
 
     robot.leftArm.setPower(0);
 
-    robot.leftDrive.setPower(1);
+    robot.leftDrive.setPower(1); //turn on intake and takes in first skystone
     robot.rightDrive.setPower(1);
 
-    gyroDrive(0.9,0.9,0.9,0.9,35,0);
+    gyroDrive(0.6,0.6,0.6,0.6,35,0); //robot drives forwards 35 inches
 
     robot.leftDrive.setPower(0);
     robot.rightDrive.setPower(0);
@@ -549,7 +549,7 @@ if(skystone1==true ) {
 
     }
 
-    gyroReverse(0.5, 0.5, 0.5, 0.5, 31, 0);
+    gyroReverse(0.5, 0.5, 0.5, 0.5, 31, 0); //backs up after getting first skystone
 
     robot.leftFront.setPower(0);
     robot.rightFront.setPower(0);
@@ -561,7 +561,7 @@ if(skystone1==true ) {
 
    // gyroDrive(0.9,0.9,0.9,0.9, 60,-90);
 
-    gyroStrafeRight(0.6,0.6,0.6,0.6,50,0);
+    gyroStrafeRight(0.6,0.6,0.6,0.6,52,0); //strafes right with first skystone to cross tape to get bonus
 
     robot.leftFront.setPower(0);
     robot.rightFront.setPower(0);
@@ -571,15 +571,15 @@ if(skystone1==true ) {
 
     runtime.reset();
     while(opModeIsActive() && runtime.seconds() <1) {
-        robot.leftArm.setPower(0.7);//+ve rotates lift down
+        robot.leftArm.setPower(0.7);//+ve rotates lift down drop 1st skystone
 
     }
     robot.leftArm.setPower(0);//+ve rotates lift down
 
     runtime.reset();
-    while(opModeIsActive() && runtime.seconds() <1.5) {
+    while(opModeIsActive() && runtime.seconds() <.5) {
         robot.leftDrive.setPower(-1);
-        robot.rightDrive.setPower(-1);
+        robot.rightDrive.setPower(-1); //delivers first skystone
     }
 
     robot.leftDrive.setPower(0);
@@ -589,14 +589,14 @@ if(skystone1==true ) {
     runtime.reset();
     while(opModeIsActive() && runtime.seconds() < 1 ) {
 
-        robot.leftArm.setPower(-0.7);//+ve rotates lift down
+        robot.leftArm.setPower(-0.7);//+ve rotates lift down lift intake up after delivering first skystone
 
     }
     robot.leftArm.setPower(0);//+ve rotates lift down
 
     sleep(500);
 
-gyroStrafeLeft(0.9,0.9,0.9,0.9,70,0);
+gyroStrafeLeft(0.6,0.6,0.6,0.6,78,0); //strafe back to second skystone
 
     robot.leftFront.setPower(0);
     robot.rightFront.setPower(0);
@@ -605,7 +605,7 @@ gyroStrafeLeft(0.9,0.9,0.9,0.9,70,0);
     sleep(100);
 
     runtime.reset();
-    while(opModeIsActive() && runtime.seconds() <.4) {
+    while(opModeIsActive() && runtime.seconds() <.5) {
         robot.leftArm.setPower(0.7);//+ve rotates lift down
 
     }
@@ -613,9 +613,10 @@ gyroStrafeLeft(0.9,0.9,0.9,0.9,70,0);
     robot.leftArm.setPower(0);
 
     robot.leftDrive.setPower(1);
-    robot.rightDrive.setPower(1);
+    robot.rightDrive.setPower(1); //turn on intake to get second skystone
+    sleep(100);
 
-    gyroDrive(0.9,0.9,0.9,0.9,35,0);
+    gyroDrive(0.5,0.5,0.5,0.5,40,0);
 
     robot.leftDrive.setPower(0);
     robot.rightDrive.setPower(0);
@@ -632,7 +633,10 @@ gyroStrafeLeft(0.9,0.9,0.9,0.9,70,0);
 
     }
 
-    gyroReverse(0.5, 0.5, 0.5, 0.5, 31, 0);
+    robot.leftArm.setPower(0);//+ve rotates lift down
+    sleep(100);
+
+    gyroReverse(0.5, 0.5, 0.5, 0.5, 39, 0);
 
     robot.leftFront.setPower(0);
     robot.rightFront.setPower(0);
@@ -640,7 +644,7 @@ gyroStrafeLeft(0.9,0.9,0.9,0.9,70,0);
     robot.rightRear.setPower(0);
     sleep(100);
 
-    gyroStrafeRight(0.6,0.6,0.6,0.6,65,0);
+    gyroStrafeRight(0.6,0.6,0.6,0.6,82,0); //deliver second stone
 
     robot.leftFront.setPower(0);
     robot.rightFront.setPower(0);
@@ -649,9 +653,9 @@ gyroStrafeLeft(0.9,0.9,0.9,0.9,70,0);
     sleep(100);
 
     runtime.reset();
-    while(opModeIsActive() && runtime.seconds() < 1 ) {
+    while(opModeIsActive() && runtime.seconds() < .4 ) {
 
-        robot.leftArm.setPower(-0.7);//+ve rotates lift down
+        robot.leftArm.setPower(0.7);//+ve rotates lift down
 
     }
     robot.leftArm.setPower(0);//+ve rotates lift down
@@ -672,22 +676,26 @@ gyroStrafeLeft(0.9,0.9,0.9,0.9,70,0);
 
     }
     robot.leftArm.setPower(0);//+ve rotates lift down
+    gyroStrafeLeft(.5,.5,.5,.5,19,0);
+
+    robot.leftFront.setPower(0);
+    robot.rightFront.setPower(0);
+    robot.leftRear.setPower(0);
+    robot.rightRear.setPower(0);
+    sleep(100);
 }
 
-/*
-      gyroStrafeLeft(.5,.5,.5,.5,9,0);
+
+      gyroStrafeLeft(.5,.5,.5,.5,7,0);
 
         robot.leftFront.setPower(0);
         robot.rightFront.setPower(0);
         robot.leftRear.setPower(0);
         robot.rightRear.setPower(0);
         sleep(100);
-        */
 
-/*
-//look at skystone 2:
         runtime.reset();
-        while (!isStopRequested() && runtime.seconds() <3) {
+        while (!isStopRequested() && runtime.seconds() <1) {
 
             // check all the trackable targets to see which one (if any) is visible.
             // targetVisible = false;
@@ -706,6 +714,8 @@ gyroStrafeLeft(0.9,0.9,0.9,0.9,70,0);
                     robot.leftRear.setPower(0);
                     robot.rightRear.setPower(0);
                     telemetry.addData("Visible Target", trackable.getName());
+
+
                     skystone2 = true;
 
                     break;
@@ -716,87 +726,192 @@ gyroStrafeLeft(0.9,0.9,0.9,0.9,70,0);
 
             }
         }
-if(skystone2 ==true) {
-    runtime.reset();
+        if(skystone2==true ) {
 
-        if (angles.firstAngle >= 1 || angles.firstAngle <= -1) {
-            gyroTurn(0.9, 0);
+            targetsSkyStone.deactivate();
+
+            gyroReverse(0.5, 0.5, 0.5, 0.5, 10, 0);//found skystone 2 and backs uo
+
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightRear.setPower(0);
+            sleep(100);
+
+            if (angles.firstAngle >= 1 || angles.firstAngle <= -1) {
+                gyroTurn(0.9, 0); // robot corrects to correct angle
+
+            }
+
+
+
+
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() <.5) {
+                robot.leftArm.setPower(0.7);//+ve rotates lift down
+
+            }
+
+            robot.leftArm.setPower(0);
+
+            robot.leftDrive.setPower(1); //turn on intake and takes in first skystone
+            robot.rightDrive.setPower(1);
+
+            gyroDrive(0.5,0.5,0.5,0.5,35,0); //robot drives forwards 35 inches to get first  skystone2=true
+
+            robot.leftDrive.setPower(0);
+            robot.rightDrive.setPower(0);
+
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightRear.setPower(0);
+            sleep(100);
+
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() <.4) {
+                robot.leftArm.setPower(-0.7);//+ve rotates lift down t
+
+            }
+
+            gyroReverse(0.5, 0.5, 0.5, 0.5, 31, 0); //backs up after getting first skystone=2
+
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightRear.setPower(0);
+            sleep(100);
+
+
+
+            gyroStrafeRight(0.8,0.8,0.8,0.8,61,0); //strafes right with first skystone=2 to cross tape to get bonus was 0.6
+
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightRear.setPower(0);
+            sleep(100);
+
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() <1) {
+                robot.leftArm.setPower(0.7);//+ve rotates lift down to deliver 1st skystone=2
+
+            }
+            robot.leftArm.setPower(0);//+ve rotates lift down
+
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() <.5) {
+                robot.leftDrive.setPower(-1);
+                robot.rightDrive.setPower(-1); //delvers first skystone=2
+            }
+
+            robot.leftDrive.setPower(0);
+            robot.rightDrive.setPower(0);
+            sleep(500);
+
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() < 1 ) {
+
+                robot.leftArm.setPower(-0.7);//+ve rotates lift down
+
+            }
+            robot.leftArm.setPower(0);//+ve rotates lift down
+
+            sleep(500);
+
+            gyroStrafeLeft(0.7,0.7,0.7,0.7,94,0); //strafe back to second skystone=2
+
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightRear.setPower(0);
+            sleep(100);
+
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() <.5) {
+                robot.leftArm.setPower(0.7);//+ve rotates lift down
+
+            }
+
+            robot.leftArm.setPower(0);
+
+            robot.leftDrive.setPower(1);
+            robot.rightDrive.setPower(1); //turn on intake to get second skystone
+            sleep(100);
+
+            gyroDrive(0.5,0.5,0.5,0.5,35,0); //to get second skystone =2
+
+            robot.leftDrive.setPower(0);
+            robot.rightDrive.setPower(0);
+
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightRear.setPower(0);
+            sleep(100);
+
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() <.4) {
+                robot.leftArm.setPower(-0.7);//+ve rotates lift down
+
+            }
+
+            robot.leftArm.setPower(0);//+ve rotates lift down
+            sleep(100);
+
+            gyroReverse(0.5, 0.5, 0.5, 0.5, 26 , 0);
+
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightRear.setPower(0);
+            sleep(100);
+
+            gyroStrafeRight(0.8,0.8,0.8,0.8,92,0); //deliver second skystone=2
+
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightRear.setPower(0);
+            sleep(100);
+
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() < .4 ) {
+
+                robot.leftArm.setPower(0.7);//+ve rotates lift down
+
+            }
+            robot.leftArm.setPower(0);//+ve rotates lift down
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() <.5) {
+                robot.leftDrive.setPower(-1);
+                robot.rightDrive.setPower(-1);
+            }
+
+            robot.leftDrive.setPower(0);
+            robot.rightDrive.setPower(0);
+            sleep(500);
+
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() < 1 ) {
+
+                robot.leftArm.setPower(-0.7);//+ve rotates lift down
+
+            }
+            robot.leftArm.setPower(0);//+ve rotates lift down
+
+            gyroStrafeLeft(.8,.8,.8,.8,28,0); //to park after finishing skystone =2
+
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightRear.setPower(0);
+            sleep(100);
 
         }
 
-    gyroReverse(0.5, 0.5, 0.5, 0.5, 10, 0);
-
-    if (angles.firstAngle >= 1 || angles.firstAngle <= -1) {
-        gyroTurn(0.9, 0);
-
-    }
-
-    runtime.reset();
-    while(opModeIsActive() && runtime.seconds() <.4) {
-        robot.leftArm.setPower(0.7);//+ve rotates lift down
-
-    }
-
-    robot.leftArm.setPower(0);
-
-    robot.leftDrive.setPower(1);
-    robot.rightDrive.setPower(1);
-
-    gyroDrive(0.9,0.9,0.9,0.9,35,0);
-
-    robot.leftDrive.setPower(0);
-    robot.rightDrive.setPower(0);
-
-    robot.leftFront.setPower(0);
-    robot.rightFront.setPower(0);
-    robot.leftRear.setPower(0);
-    robot.rightRear.setPower(0);
-    sleep(100);
-
-    runtime.reset();
-    while(opModeIsActive() && runtime.seconds() <.4) {
-        robot.leftArm.setPower(-0.7);//+ve rotates lift down
-
-    }
-
-    gyroReverse(0.5, 0.5, 0.5, 0.5, 35, 0);
-
-    robot.leftFront.setPower(0);
-    robot.rightFront.setPower(0);
-    robot.leftRear.setPower(0);
-    robot.rightRear.setPower(0);
-    sleep(100);
-
-    gyroTurn(0.7,-90);
-
-    gyroDrive(0.9,0.9,0.9,0.9, 63,-90);
-
-    robot.leftFront.setPower(0);
-    robot.rightFront.setPower(0);
-    robot.leftRear.setPower(0);
-    robot.rightRear.setPower(0);
-    sleep(100);
-
-    runtime.reset();
-    while(opModeIsActive() && runtime.seconds() <.4) {
-        robot.leftArm.setPower(0.7);//+ve rotates lift down
-
-    }
-
-    runtime.reset();
-    while(opModeIsActive() && runtime.seconds() <.5) {
-        robot.leftDrive.setPower(-1);
-        robot.rightDrive.setPower(-1);
-    }
-    gyroReverse(0.5, 0.5, 0.5, 0.5, 25, 0);
-    robot.leftFront.setPower(0);
-    robot.rightFront.setPower(0);
-    robot.leftRear.setPower(0);
-    robot.rightRear.setPower(0);
-    sleep(100);
-}
-
-        gyroStrafeLeft(.5,.5,.5,.5,9,0);
+        gyroStrafeLeft(.5,.5,.5,.5,8,0);
+        skystone3=true;
 
         robot.leftFront.setPower(0);
         robot.rightFront.setPower(0);
@@ -804,8 +919,8 @@ if(skystone2 ==true) {
         robot.rightRear.setPower(0);
         sleep(100);
 
-        runtime.reset();
-        while (!isStopRequested() && runtime.seconds() <3) {
+       /* runtime.reset();
+        while (!isStopRequested() && runtime.seconds() <1) {
 
             // check all the trackable targets to see which one (if any) is visible.
             // targetVisible = false;
@@ -824,6 +939,8 @@ if(skystone2 ==true) {
                     robot.leftRear.setPower(0);
                     robot.rightRear.setPower(0);
                     telemetry.addData("Visible Target", trackable.getName());
+
+
                     skystone3 = true;
 
                     break;
@@ -834,17 +951,14 @@ if(skystone2 ==true) {
 
             }
         }
+        */
 
-        if(skystone3==true){
+        if(skystone3==true ) {
 
+            targetsSkyStone.deactivate();
 
-                if (angles.firstAngle >= 1 || angles.firstAngle <= -1) {
-                    gyroTurn(0.9, 0);
-                }
+            gyroReverse(0.5, 0.5, 0.5, 0.5, 10, 0);//found skystone and backs uo
 
-
-
-            gyroReverse(0.5,0.5,0.5,0.5,15,0);
             robot.leftFront.setPower(0);
             robot.rightFront.setPower(0);
             robot.leftRear.setPower(0);
@@ -852,14 +966,211 @@ if(skystone2 ==true) {
             sleep(100);
 
             if (angles.firstAngle >= 1 || angles.firstAngle <= -1) {
-                gyroTurn(0.9, 0);
+                gyroTurn(0.9, 0); // robot corrects to correct angle
+
             }
 
 
 
+
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() <.5) {
+                robot.leftArm.setPower(0.7);//+ve rotates lift down
+
+            }
+
+            robot.leftArm.setPower(0);
+
+            robot.leftDrive.setPower(1); //turn on intake and takes in first skystone
+            robot.rightDrive.setPower(1);
+
+            gyroDrive(0.4,0.4,0.4,0.4,35,0); //robot drives forwards 35 inches
+
+            robot.leftDrive.setPower(0);
+            robot.rightDrive.setPower(0);
+
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightRear.setPower(0);
+            sleep(100);
+
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() <.4) {
+                robot.leftArm.setPower(-0.7);//+ve rotates lift down
+
+            }
+
+            gyroReverse(0.5, 0.5, 0.5, 0.5, 27, 0); //backs up after getting first skystone
+
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightRear.setPower(0);
+            sleep(100);
+
+            //gyroTurn(0.7,-90);
+
+            // gyroDrive(0.9,0.9,0.9,0.9, 60,-90);
+
+            gyroStrafeRight(0.8,0.8,0.8,0.8,70,0); //strafes right with first skystone to cross tape to get bonus was 0.6
+
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightRear.setPower(0);
+            sleep(100);
+
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() <1) {
+                robot.leftArm.setPower(0.7);//+ve rotates lift down
+
+            }
+            robot.leftArm.setPower(0);//+ve rotates lift down
+
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() <.5) {
+                robot.leftDrive.setPower(-1);
+                robot.rightDrive.setPower(-1); //deluvers first skystone
+            }
+
+            robot.leftDrive.setPower(0);
+            robot.rightDrive.setPower(0);
+            sleep(500);
+
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() < 1 ) {
+
+                robot.leftArm.setPower(-0.7);//+ve rotates lift down
+
+            }
+            robot.leftArm.setPower(0);//+ve rotates lift down
+
+            sleep(500);
+
+            gyroStrafeLeft(0.9,0.9,0.9,0.9,98,0); //strafe back to second skystone  98
+
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightRear.setPower(0);
+            sleep(100);
+
+
+
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightRear.setPower(0);
+            sleep(100);
+
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() <.5) {
+                robot.leftArm.setPower(0.7);//+ve rotates lift down
+
+            }
+
+            robot.leftArm.setPower(0);
+
+            robot.leftDrive.setPower(1);
+            robot.rightDrive.setPower(1); //turn on intake to get second skystone
+            sleep(100);
+
+            gyroDrive(0.5,0.5,0.5,0.5,35,0);//35
+
+            robot.leftDrive.setPower(0);
+            robot.rightDrive.setPower(0);
+
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightRear.setPower(0);
+            sleep(100);
+
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() <.4) {
+                robot.leftArm.setPower(-0.7);//+ve rotates lift down
+
+            }
+
+            robot.leftArm.setPower(0);//+ve rotates lift down
+            sleep(100);
+
+            gyroReverse(0.5, 0.5, 0.5, 0.5, 30 , 0);// 28
+
+
+
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightRear.setPower(0);
+            sleep(100);
+
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightRear.setPower(0);
+            sleep(100);
+
+            gyroStrafeRight(0.8,0.8,0.8,0.8,96,0); //deliver second stone was 0.6
+
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightRear.setPower(0);
+            sleep(100);
+
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() < .4 ) {
+
+                robot.leftArm.setPower(0.7);//+ve rotates lift down
+
+            }
+            robot.leftArm.setPower(0);//+ve rotates lift down
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() <.5) {
+                robot.leftDrive.setPower(-1);
+                robot.rightDrive.setPower(-1);
+            }
+
+            robot.leftDrive.setPower(0);
+            robot.rightDrive.setPower(0);
+            sleep(500);
+
+            runtime.reset();
+            while(opModeIsActive() && runtime.seconds() < 1 ) {
+
+                robot.leftArm.setPower(-0.7);//+ve rotates lift down
+
+            }
+            robot.leftArm.setPower(0);//+ve rotates lift down
+            targetsSkyStone.deactivate();
+
+            gyroStrafeLeft(.8,.8,.8,.8,18,0);
+
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftRear.setPower(0);
+            robot.rightRear.setPower(0);
+            sleep(5000);
         }
 
-*/
+
+
+        gyroStrafeLeft(.5,.5,.5,.5,7,0);
+
+        robot.leftFront.setPower(0);
+        robot.rightFront.setPower(0);
+        robot.leftRear.setPower(0);
+        robot.rightRear.setPower(0);
+        sleep(100);
+
+
+
+
+
+
+
 
 
         targetsSkyStone.deactivate();
@@ -1233,10 +1544,10 @@ if(skystone2 ==true) {
                 if (distance < 0)
                     steer *= -1.0;
 
-                leftSpeedF = -speedLF + (steer*.1);
-                leftSpeedR = speedLR - (steer*.1);
-                rightSpeedF = speedRF + (steer*.1);
-                rightSpeedR= -speedRR - (steer*.1);
+                leftSpeedF = -speedLF - (steer*.5);
+                leftSpeedR = speedLR +(steer*.5);
+                rightSpeedF = speedRF - (steer*.5);
+                rightSpeedR= -speedRR + (steer*.5);
 
                 //leftSpeedF = -speedLF ;
                 //leftSpeedR = speedLR ;
