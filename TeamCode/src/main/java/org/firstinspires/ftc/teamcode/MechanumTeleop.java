@@ -90,6 +90,7 @@ public class MechanumTeleop extends OpMode{
 
         robot.rightClaw.setPosition(0.4);
         robot.leftClaw.setPosition(0.6);
+        robot.newFound.setPosition(0.15);
 
     }
 
