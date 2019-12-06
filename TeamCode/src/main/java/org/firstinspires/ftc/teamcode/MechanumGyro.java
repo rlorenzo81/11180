@@ -102,6 +102,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
  //@Disabled
 //@Disabled
+@Disabled
 public class MechanumGyro extends LinearOpMode {
 
     /* Declare OpMode members. */
